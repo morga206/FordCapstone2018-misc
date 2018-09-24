@@ -40,21 +40,41 @@ while input_source != '0'  and input_source != '1':
 
 
 # User will enter sentences to analyze
-if input_source == '1': 
-    while enter_input != '0':
-        enter_input = input("Enter another sentence (0 to quit)")
-        sentences.append(enter_input)
+if input_source == '1':
 
+    enter_input = input("Enter A sentence (0 to quit)")
+    while enter_input != '0':
+        sentences.append(enter_input)
+        enter_input = input("Enter another sentence (0 to quit)")
+    print('\n_________Unfiltered Sentiment__________')
+        
+
+    for i, sent in enumerate(sentences):    # For index, string in sentences
+        temp = ''
+        print(sent, '\n')
+        analyzeText(sent, s)
+        print('\n\n')
+        for word in sent.split(' '):
+            if word not in stop_words:
+                temp += word + ' '
+        filtered_sent.append(temp)
+
+    print("__________Filtered Sentiment__________\n")
+    for i, sent in enumerate(filtered_sent):
+        print(sent, "\n")
+        analyzeText(sent, s)
+        print('\n\n')
+        
 
 
 # Otherwise we use the txt file with reviews
 elif input_source == '0':
-    reviews_text = input_file.readlines()
-    for i, review in enumerate(reviews_text):
+    reviews_text = input_file.readlines()   # Each line in reviews_text is a single review
+    for i, review in enumerate(reviews_text):   # Each review consists of multiple sentences
         
         if review.replace('\x00', '').strip() != '':    #Special charachter '\x00' pollutes txt field
-            sent = sent_tokenize(review.replace('\x00', '').replace('\x19',"\'"))
-            sentences.append(sent)
+            sent = sent_tokenize(review.replace('\x00', '').replace('\x19',"\'"))# Break up by sent
+            sentences.append(sent)  # Sentences contains sentences for each review
             #print(i, ': ', len(sent), ": ",sent)
             #print((i//2)+1, ': ',review)
             #print('\n\n')
@@ -62,18 +82,18 @@ elif input_source == '0':
 
 
 
-for i,review in enumerate(sentences):
-    min_sent = 100.00
-    max_sent = 0.00
-    average_sent = 0
+    for i,review in enumerate(sentences):
+        min_sent = 100.00
+        max_sent = 0.00
+        average_sent = 0
 
-    for sentence in review:
-        print(sentence, '\n')
-        analyzeText(sentence, s)
-        print('\n')
+        for sentence in review:
+            print(sentence, '\n')
+            analyzeText(sentence, s)
+            print('\n\n')
 
-    print('\n\n\n')
-    
 
+
+print('\n\n\n')
 print("::::END_OUTPUT::::")
 
