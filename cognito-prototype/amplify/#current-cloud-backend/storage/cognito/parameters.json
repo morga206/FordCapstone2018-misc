@@ -1,0 +1,9 @@
+{
+    "bucketName": "cognitoprototype",
+    "authPolicyName": "s3_amplify_9363c232",
+    "unauthPolicyName": "s3_amplify_9363c232",
+    "authRoleName": "cognitoprototype-20180927061755-authRole",
+    "unauthRoleName": "cognitoprototype-20180927061755-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": ""
+}
